@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
 use DB;
 
 use App\Models\Users\Subjects;
@@ -53,11 +54,13 @@ class RegisterController extends Controller
      */
     public function registerView()
     {
+        //subjectモデルから全件取得
         $subjects = Subjects::all();
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    //FormRequest：リクエストの段階でバリデーションが行われるので、バリデーションチェックを通過した時のみコントローラの処理が実行される
+    public function registerPost(RegisterRequest $request)
     {
         DB::beginTransaction();
         try{
@@ -79,6 +82,7 @@ class RegisterController extends Controller
                 'role' => $request->role,
                 'password' => bcrypt($request->password)
             ]);
+            //dd($user_get);
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
             DB::commit();
@@ -88,4 +92,5 @@ class RegisterController extends Controller
             return redirect()->route('loginView');
         }
     }
+
 }
