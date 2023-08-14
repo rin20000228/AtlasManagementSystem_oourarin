@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Users\Subjects;
 use App\Models\Posts\Like;
 use Auth;
 
@@ -66,8 +67,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Calendars\ReserveSettings', 'reserve_setting_users', 'user_id', 'reserve_setting_id')->withPivot('id');
     }
     //userとsubjectは多対多の関係
+    //中間テーブル
     public function subjects(){
-         return $this->belongsToMany('App\Models\Users\Subjects');
+         return $this->belongsToMany('App\Models\Users\Subjects', 'subject_users', 'user_id', 'subject_id');
     }
 
     // いいねしているかどうか

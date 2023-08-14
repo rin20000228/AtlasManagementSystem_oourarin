@@ -16,6 +16,6 @@ class Subjects extends Model
     ];
     //userとsubjectは多対多の関係
     public function users(){
-        return $this->belongsToMany('App\Models\Users\User');
+        return $this->belongsToMany('App\Models\Users\User', 'subject_users', 'subject_id', 'user_id');
     }
 }

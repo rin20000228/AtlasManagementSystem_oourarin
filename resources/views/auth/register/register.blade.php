@@ -196,11 +196,6 @@
           <label style="font-size:13px" class="other_role">生徒</label>
         </div>
         <div class="select_teacher d-none">
-          <ul>
-               @if ($errors->has('subject'))
-               <li>{{$errors->first('subject')}}</li>
-               @endif
-            </ul>
           <label class="d-block m-0" style="font-size:13px">選択科目</label>
           @foreach($subjects as $subject)
           <div class="">

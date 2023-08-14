@@ -32,14 +32,28 @@ class RegisterRequest extends FormRequest
         'under_name_kana' => 'required|string|regex:/^[ァ-ヶー]+$/u|max:30',
         'mail_address' => 'required|email|unique:users|max:100',
         'sex' => 'required|in:1,2,3',
-        'old_year' => 'required|date_format:Y-m-d|before_or_equal:today',
-        'old_month' => 'required|date_format:m',
-        'old_day' => 'required|date_format:d',
+        'old_year' => 'required|numeric',
+        'old_month' => 'required|numeric',
+        'old_day' => 'required|numeric',
+        'birth_day' => 'required|date|after:2000-01-01|before_or_equal:' . now()->format('Y-m-d'),
         'role' => 'required|in:1,2,3,4',
         'password' => 'required|string|min:8|max:30|confirmed',
         ];
         //in：ラジオボタンやプルダウンで用意している内容を選択しないときバリデーションに引っかかる
         //dd($rules);
+    }
+    // 生年月日の結合・バリデーションデータの更新
+    public function getValidatorInstance()
+    {
+        //３つの値を一つにマージして、$birth_dayとする
+        if ($this->input('old_day') && $this->input('old_month') && $this->input('old_year')) {
+            $birth_day = implode('-', $this->only(['old_year', 'old_month', 'old_day']));
+            $this->merge([
+                'birth_day' => $birth_day,
+            ]);
+        }
+        //dd($birth_day);
+        return parent::getValidatorInstance();
     }
 
     //エラーメッセージ
@@ -54,6 +68,7 @@ class RegisterRequest extends FormRequest
         'min' => ':attributeは:min文字以上で入力してください。',
         'in' => '選択された:attributeが無効です。',
         'date_format' => ':attributeの形式が正しくありません。',
+        'after' => ':attributeは2000年1月1日以降の日付を指定してください。',
         'before_or_equal' => ':attributeは今日以前の日付を指定してください。',
         'regex' => ':attributeの形式で入力してください。',
         'confirmed' => ':attributeが一致しません。',
@@ -69,9 +84,7 @@ class RegisterRequest extends FormRequest
         'under_name_kana' => 'カタカナ',
         'mail_address' => 'メールアドレス',
         'sex' => '性別',
-        'old_year' => '生年月日',
-        'old_month' => '生年月日',
-        'old_day' => '生年月日',
+        'birth_day' => '生年月日',
         'role' => '役職',
         'password' => 'パスワード',
     ];

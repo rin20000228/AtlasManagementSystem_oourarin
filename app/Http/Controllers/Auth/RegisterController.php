@@ -54,7 +54,6 @@ class RegisterController extends Controller
      */
     public function registerView()
     {
-        //subjectモデルから全件取得
         $subjects = Subjects::all();
         return view('auth.register.register', compact('subjects'));
     }
@@ -69,7 +68,8 @@ class RegisterController extends Controller
             $old_day = $request->old_day;
             $data = $old_year . '-' . $old_month . '-' . $old_day;
             $birth_day = date('Y-m-d', strtotime($data));
-            $subjects = $request->subject;
+            $subjects = $request->input('subject', []);
+            //役職が生徒の時の選択科目の値の処理→subject_userテーブルに値を保存
 
             $user_get = User::create([
                 'over_name' => $request->over_name,
@@ -83,8 +83,12 @@ class RegisterController extends Controller
                 'password' => bcrypt($request->password)
             ]);
             //dd($user_get);
+            //userモデルから、一致するユーザーレコードを探す
+            //findOrFairメソッド：該当するレコードが見つからない場合はスルー
             $user = User::findOrFail($user_get->id);
+            //subjectsとして渡された値を$userに紐づける（多対多）
             $user->subjects()->attach($subjects);
+            //DBに変更を保存
             DB::commit();
             return view('auth.login.login');
         }catch(\Exception $e){
