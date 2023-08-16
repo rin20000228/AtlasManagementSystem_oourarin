@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
         'old_year' => 'required|numeric',
         'old_month' => 'required|numeric',
         'old_day' => 'required|numeric',
-        'birth_day' => 'required|date|after:2000-01-01|before_or_equal:' . now()->format('Y-m-d'),
+        'birth_day' => 'required|date|after:1999-12-31|before_or_equal:' . now()->format('Y-m-d'),
         'role' => 'required|in:1,2,3,4',
         'password' => 'required|string|min:8|max:30|confirmed',
         ];

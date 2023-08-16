@@ -184,7 +184,7 @@
                @if ($errors->has('role'))
                <li>{{$errors->first('role')}}</li>
                @endif
-            </ul>
+          </ul>
           <label class="d-block m-0" style="font-size:13px">役職</label>
           <input type="radio" name="role" class="admin_role role" value="1">
           <label style="font-size:13px">教師(国語)</label>
@@ -222,7 +222,7 @@
           </div>
         </div>
         <div class="mt-5 text-right">
-          <input type="submit" class="btn btn-primary register_btn" value="新規登録" onclick="return confirm('登録してよろしいですか？')">
+          <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
         </div>
         <div class="text-center">
           <a href="{{ route('loginView') }}">ログイン</a>

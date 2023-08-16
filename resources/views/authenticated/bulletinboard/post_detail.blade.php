@@ -4,6 +4,9 @@
   <div class="w-50 mt-5">
     <div class="m-3 detail_container">
       <div class="p-3">
+        @foreach ($post as $post)
+        <!-- 投稿の編集ボタン -->
+        @if(Auth::user()->id == $post->id)
         <div class="detail_inner_head">
           <div>
           </div>
@@ -12,7 +15,8 @@
             <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a>
           </div>
         </div>
-
+        @endif
+        @endforeach
         <div class="contributor d-flex">
           <p>
             <span>{{ $post->user->over_name }}</span>
@@ -21,7 +25,17 @@
           </p>
           <span class="ml-5">{{ $post->created_at }}</span>
         </div>
+        <ul>
+        @if ($errors->has('post_title'))
+        <li>{{ $errors->first('post_title') }}</li>
+        @endif
+        </ul>
         <div class="detsail_post_title">{{ $post->post_title }}</div>
+        <ul>
+          @if ($errors->has('post_body'))
+        <li>{{ $errors->first('post_body') }}</li>
+        @endif
+        </ul>
         <div class="mt-3 detsail_post">{{ $post->post }}</div>
       </div>
       <div class="p-3">
