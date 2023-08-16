@@ -13,9 +13,9 @@ class PostsSeeder extends Seeder
     {
         DB::table('posts')->insert([
             [
-                'user_id' => '2',
-                'post_title' => '今週の献立',
-                'post' => '今週はデザートなしです。',
+                'user_id' => '9',
+                'post_title' => '8月16日',
+                'post' => '今日のお知らせを入力してください。',
             ]
             ]);
     }

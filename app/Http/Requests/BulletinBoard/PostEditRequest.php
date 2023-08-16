@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\BulletinBoard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,6 @@ class PostEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_category_id' => 'required|exists:subcategories,id',
             'post_title' => 'required|string|max:100',
             'post_body' => 'required|string|max:5000',
         ];
@@ -43,7 +42,6 @@ class PostEditRequest extends FormRequest
     public function attributes()
     {
     return [
-        'post_category_id' => '投稿カテゴリー',
         'post_title' => '投稿タイトル',
         'post_body' => '投稿内容',
     ];

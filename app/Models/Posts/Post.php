@@ -16,7 +16,7 @@ class Post extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\Models\Users\User');
+        return $this->belongsTo('App\Models\Users\User','user_id');
     }
 
     public function postComments(){
