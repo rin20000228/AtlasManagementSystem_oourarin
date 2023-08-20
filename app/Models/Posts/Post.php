@@ -18,7 +18,10 @@ class Post extends Model
     public function user(){
         return $this->belongsTo('App\Models\Users\User','user_id');
     }
-
+    //likeモデルとのリレーション
+    public function likes(){
+    return $this->hasMany(Like::class, 'like_post_id');
+}
     public function postComments(){
         return $this->hasMany('App\Models\Posts\PostComment');
     }

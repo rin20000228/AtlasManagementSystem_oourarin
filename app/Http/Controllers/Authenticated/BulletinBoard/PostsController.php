@@ -83,20 +83,21 @@ class PostsController extends Controller
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
-
+    //自分の投稿一覧
     public function myBulletinBoard(){
         $posts = Auth::user()->posts()->get();
         $like = new Like;
         return view('authenticated.bulletinboard.post_myself', compact('posts', 'like'));
     }
-
+    //いいねした投稿一覧
     public function likeBulletinBoard(){
         $like_post_id = Like::with('users')->where('like_user_id', Auth::id())->get('like_post_id')->toArray();
         $posts = Post::with('user')->whereIn('id', $like_post_id)->get();
         $like = new Like;
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
-
+    //いいね機能
+    //ユーザーidと投稿idを受け取り、Likeモデルを使用して新しいいいねのレコードを追加する
     public function postLike(Request $request){
         $user_id = Auth::id();
         $post_id = $request->post_id;
@@ -109,7 +110,8 @@ class PostsController extends Controller
 
         return response()->json();
     }
-
+    //いいねの解除
+    //Likeモデルを使用して、該当のいいねレコードを削除する
     public function postUnLike(Request $request){
         $user_id = Auth::id();
         $post_id = $request->post_id;

@@ -72,10 +72,20 @@ class User extends Authenticatable
          return $this->belongsToMany('App\Models\Users\Subjects', 'subject_users', 'user_id', 'subject_id');
     }
 
+    //いいねした時に動くクラス
+    public function likes(){
+        return $this->belongsToMany(Like::class, 'likes', 'like_user_id', 'like_post_id');
+    }
+
     // いいねしているかどうか
     public function is_Like($post_id){
         return Like::where('like_user_id', Auth::id())->where('like_post_id', $post_id)->first(['likes.id']);
     }
+
+    //いいねされているかどうか
+    public function hasLiked($post_id) {
+    return $this->likes()->where('like_post_id', $post_id)->exists();
+}
 
     public function likePostId(){
         return Like::where('like_user_id', Auth::id());
