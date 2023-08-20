@@ -43,10 +43,10 @@
       </div>
       <div>
         @if($user->role == 4)
-        @php
-            $subjects = json_decode($user->subjects);
-        @endphp
-        <span>選択科目: <span>{{ $subjects[0]->subject }}</span></span>
+        <span>選択科目:
+        @foreach($user->subjects as $subject)
+          <span>{{ $subject->subject }}</span></span>
+        @endforeach
         @endif
       </div>
     </div>

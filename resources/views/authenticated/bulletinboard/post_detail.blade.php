@@ -35,6 +35,16 @@
         @endif
         </ul>
         <div class="mt-3 detsail_post">{{ $post->post }}</div>
+        <div class="mr-5">
+            <i class="fa fa-comment"></i><span>{{ $post->postComments->count() }}</span>
+          </div>
+        <div>
+            @if(Auth::user()->is_Like($post->id))
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ $post->likes->count() }}</span></p>
+            @else
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ $post->likes->count() }}</span></p>
+            @endif
+          </div>
       </div>
       <div class="p-3">
         <div class="comment_container">
