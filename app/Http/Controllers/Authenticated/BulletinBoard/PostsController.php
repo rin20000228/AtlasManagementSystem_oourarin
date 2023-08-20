@@ -12,6 +12,7 @@ use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostEditRequest;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
+use App\Http\Requests\CommentRequest;
 use Auth;
 
 class PostsController extends Controller
@@ -74,13 +75,14 @@ class PostsController extends Controller
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
-
-    public function commentCreate(Request $request){
+    //投稿のコメント
+    public function commentCreate(CommentRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
             'comment' => $request->comment
         ]);
+        //dd($request);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
     //自分の投稿一覧

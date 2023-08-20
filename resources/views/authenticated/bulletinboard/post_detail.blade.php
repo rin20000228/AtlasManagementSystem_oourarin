@@ -55,6 +55,11 @@
   <div class="w-50 p-3">
     <div class="comment_container border m-5">
       <div class="comment_area p-3">
+        @if ($errors->any())
+        @foreach($errors->all() as $error)
+        <p class="">{{ $error }}</p>
+        @endforeach
+        @endif
         <p class="m-0">コメントする</p>
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
