@@ -45,11 +45,18 @@ Route::group(['middleware' => 'auth'], function(){
             Route::get('/bulletin_board/input', 'PostsController@postInput')->name('post.input');
             Route::get('/bulletin_board/like', 'PostsController@likeBulletinBoard')->name('like.bulletin.board');
             Route::get('/bulletin_board/my_post', 'PostsController@myBulletinBoard')->name('my.bulletin.board');
+            //サブカテゴリー投稿一覧
+            Route::get('/bulletin_board/sub_category/{sub_category_id}', 'PostsController@subcategoryPosts')->name('subcategory.bulletin.board');
             Route::post('/bulletin_board/create', 'PostsController@postCreate')->name('post.create');
+            //メインカテゴリーの追加
             Route::post('/create/main_category', 'PostsController@mainCategoryCreate')->name('main.category.create');
+            //サブカテゴリーの追加
             Route::post('/create/sub_category', 'PostsController@subCategoryCreate')->name('sub.category.create');
+            //投稿の詳細
             Route::get('/bulletin_board/post/{id}', 'PostsController@postDetail')->name('post.detail');
+            //投稿の編集
             Route::post('/bulletin_board/edit', 'PostsController@postEdit')->name('post.edit');
+            //投稿の削除
             Route::get('/bulletin_board/delete/{id}', 'PostsController@postDelete')->name('post.delete');
             //投稿のコメント
             Route::post('/comment/create', 'PostsController@commentCreate')->name('comment.create');

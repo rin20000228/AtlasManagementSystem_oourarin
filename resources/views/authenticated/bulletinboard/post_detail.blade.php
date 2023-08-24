@@ -28,6 +28,9 @@
         <li>{{ $errors->first('post_title') }}</li>
         @endif
         </ul>
+        @foreach($post->subCategories as $sub_category)
+        <p class="sub_category" sub_category_id="{{ $sub_category->id }}"><span class="sub_category_tag">{{ $sub_category->sub_category }}</span></p>
+        @endforeach
         <div class="detsail_post_title">{{ $post->post_title }}</div>
         <ul>
           @if ($errors->has('post_body'))

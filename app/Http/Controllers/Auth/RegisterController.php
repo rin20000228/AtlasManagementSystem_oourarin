@@ -87,6 +87,7 @@ class RegisterController extends Controller
             //findOrFairメソッド：該当するレコードが見つからない場合はスルー
             $user = User::findOrFail($user_get->id);
             //subjectsとして渡された値を$userに紐づける（多対多）
+            //中間テーブルに保存
             $user->subjects()->attach($subjects);
             //DBに変更を保存
             DB::commit();

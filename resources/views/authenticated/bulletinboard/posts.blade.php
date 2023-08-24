@@ -8,6 +8,9 @@
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
       <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+       @foreach($post->subCategories as $sub_category)
+       <p class="sub_category" sub_category_id="{{ $sub_category->id }}"><span class="sub_category_tag">{{ $sub_category->sub_category }}</span></p>
+       @endforeach
       <div class="post_bottom_area d-flex">
         <div class="d-flex post_status">
           <div class="mr-5">
@@ -37,6 +40,14 @@
       <ul>
         @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        <li class="sub_categories">
+            @foreach($category->subCategories as $sub_category)
+                <li class="sub_category" sub_category_id="{{ $sub_category->id }}"></li>
+                  <a href="{{ route('subcategory.bulletin.board', ['sub_category_id' => $sub_category->id]) }}">
+            <span class="sub_category_btn">{{ $sub_category->sub_category }}</span>
+        </a>
+            @endforeach
+        </li>
         @endforeach
       </ul>
     </div>

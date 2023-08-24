@@ -14,7 +14,7 @@ class Subjects extends Model
     protected $fillable = [
         'subject'
     ];
-    //userとsubjectは多対多の関係
+    //userとsubjectは多対多の関係(中間テーブル)
     public function users(){
         return $this->belongsToMany('App\Models\Users\User', 'subject_users', 'subject_id', 'user_id');
     }

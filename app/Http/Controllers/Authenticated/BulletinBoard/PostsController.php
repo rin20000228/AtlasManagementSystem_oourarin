@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories\MainCategory;
 use App\Models\Categories\SubCategory;
+use App\Http\Requests\SubCategoryRequest;
+use App\Http\Requests\MainCategoryRequest;
 use App\Models\Posts\Post;
 use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
@@ -18,8 +20,11 @@ use Auth;
 class PostsController extends Controller
 {
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
+        //モデルのクラス名を指定して投稿と一緒にテーブルの情報を取得する
+        $posts = Post::with('user', 'postComments', 'subCategories')->get();
+        //dd($posts);
+        $categories = MainCategory::with('subCategories')->get();
+        //dd($categories);
         $like = new Like;
         $post_comment = new Post;
         if(!empty($request->keyword)){
@@ -47,15 +52,19 @@ class PostsController extends Controller
 
     public function postInput(){
         $main_categories = MainCategory::get();
+        //$main_categories = MainCategory::with('sub_categories')->get();
         return view('authenticated.bulletinboard.post_create', compact('main_categories'));
     }
 
     public function postCreate(PostFormRequest $request){
+        //dd($request);
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+        //attach：中間テーブルへ
+        $post->subCategories()->attach($request->post_category_id);
         return redirect()->route('post.show');
     }
     //投稿の編集
@@ -71,11 +80,25 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
-    public function mainCategoryCreate(Request $request){
+    //メインカテゴリーの追加
+    public function mainCategoryCreate(MainCategoryRequest $request){
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
-    //投稿のコメント
+    // サブカテゴリーの追加
+    public function subCategoryCreate(SubCategoryRequest $request){
+        //メインカテゴリーidを取得
+    $mainCategoryId = $request->input('main_category_id');
+    $subCategoryName = $request->input('sub_category_name');
+
+    $subCategory = new SubCategory();
+    $subCategory->main_category_id = $mainCategoryId;
+    $subCategory->sub_category = $subCategoryName;
+    $subCategory->save();
+    return redirect()->route('post.input');
+}
+
+//投稿のコメント
     public function commentCreate(CommentRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
@@ -98,7 +121,14 @@ class PostsController extends Controller
         $like = new Like;
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
-    //いいね機能
+    //サブカテゴリーの投稿
+    public function subcategoryPosts($sub_category_id) {
+        //dd($sub_category_id);
+        $subcategory = Subcategory::find($sub_category_id);
+        $posts = $subcategory->posts;
+        return view('authenticated.bulletinboard.post_subcategory', compact('posts', 'subcategory'));
+}
+//いいね機能
     //ユーザーidと投稿idを受け取り、Likeモデルを使用して新しいいいねのレコードを追加する
     public function postLike(Request $request){
         $user_id = Auth::id();
@@ -126,4 +156,6 @@ class PostsController extends Controller
 
         return response()->json();
     }
+
+
 }

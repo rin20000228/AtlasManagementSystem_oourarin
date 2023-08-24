@@ -30,7 +30,9 @@ class Post extends Model
     return Post::with('postComments')->find($post_id)->postComments;
 }
 
+//サブカテゴリーとのリレーション
     public function subCategories(){
-        // リレーションの定義
+        // リレーションの定義（多対多）
+        return $this->belongsToMany('App\Models\Categories\SubCategory', 'post_sub_categories', 'post_id', 'sub_category_id');
     }
 }
