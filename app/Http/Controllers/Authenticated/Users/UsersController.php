@@ -20,11 +20,16 @@ class UsersController extends Controller
         $updown = $request->updown;
         $gender = $request->sex;
         $role = $request->role;
-        $subjects = null;// ここで検索時の科目を受け取る
+        $subjects = $request->subject; // ここで検索時の科目を受け取る
+        //dd($subjects);
+
         $userFactory = new SearchResultFactories();
+        // ユーザーの絞り込み
+        // 検索条件に基づいて絞り込まれたユーザーのコレクションを取得する
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
-        $subjects = Subjects::all();
-        return view('authenticated.users.search', compact('users', 'subjects'));
+        // 科目の一覧表示
+        $allSubjects = Subjects::all();
+        return view('authenticated.users.search', compact('users', 'allSubjects'));
     }
 
     public function userProfile($id){

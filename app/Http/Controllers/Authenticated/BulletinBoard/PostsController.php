@@ -125,8 +125,9 @@ class PostsController extends Controller
     public function subcategoryPosts($sub_category_id) {
         //dd($sub_category_id);
         $subcategory = Subcategory::find($sub_category_id);
-        $posts = $subcategory->posts;
-        return view('authenticated.bulletinboard.post_subcategory', compact('posts', 'subcategory'));
+        $posts = $subcategory->posts()->with('user', 'likes', 'postComments')->get();
+        $like = new Like;
+        return view('authenticated.bulletinboard.post_subcategory', compact('posts', 'subcategory', 'like'));
 }
 //いいね機能
     //ユーザーidと投稿idを受け取り、Likeモデルを使用して新しいいいねのレコードを追加する
