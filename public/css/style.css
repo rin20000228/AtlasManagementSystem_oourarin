@@ -129,6 +129,13 @@ li {
   background: #FFF;
 }
 
+.post-title a {
+  display: block;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .post_area {
   background: #FFF;
   border-radius: 10px;

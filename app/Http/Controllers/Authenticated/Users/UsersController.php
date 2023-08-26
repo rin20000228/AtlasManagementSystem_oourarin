@@ -20,9 +20,9 @@ class UsersController extends Controller
         $updown = $request->updown;
         $gender = $request->sex;
         $role = $request->role;
-        $subjects = $request->subject; // ここで検索時の科目を受け取る
+        $subjects = $request->subject_id;; // ここで検索時の科目を受け取る
         //dd($subjects);
-
+        //メソッド
         $userFactory = new SearchResultFactories();
         // ユーザーの絞り込み
         // 検索条件に基づいて絞り込まれたユーザーのコレクションを取得する

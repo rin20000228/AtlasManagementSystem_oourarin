@@ -41,8 +41,10 @@ Route::group(['middleware' => 'auth'], function(){
             });
         });
         Route::namespace('BulletinBoard')->group(function(){
+            //投稿の一覧表示
             Route::get('/bulletin_board/posts/{keyword?}', 'PostsController@show')->name('post.show');
             Route::get('/bulletin_board/input', 'PostsController@postInput')->name('post.input');
+            //いいねした投稿・ログインユーザーの投稿一覧
             Route::get('/bulletin_board/like', 'PostsController@likeBulletinBoard')->name('like.bulletin.board');
             Route::get('/bulletin_board/my_post', 'PostsController@myBulletinBoard')->name('my.bulletin.board');
             //サブカテゴリー投稿一覧

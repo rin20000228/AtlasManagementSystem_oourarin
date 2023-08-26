@@ -7,7 +7,7 @@
     @foreach($posts as $post)
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <p class="post_title"><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
        @foreach($post->subCategories as $sub_category)
        <p class="sub_category" sub_category_id="{{ $sub_category->id }}"><span class="sub_category_tag">{{ $sub_category->sub_category }}</span></p>
        @endforeach
@@ -43,9 +43,7 @@
         <li class="sub_categories">
             @foreach($category->subCategories as $sub_category)
                 <li class="sub_category" sub_category_id="{{ $sub_category->id }}"></li>
-                  <a href="{{ route('subcategory.bulletin.board', ['sub_category_id' => $sub_category->id]) }}">
-            <span class="sub_category_btn">{{ $sub_category->sub_category }}</span>
-        </a>
+                  <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->sub_category }}" form="postSearchRequest">
             @endforeach
         </li>
         @endforeach

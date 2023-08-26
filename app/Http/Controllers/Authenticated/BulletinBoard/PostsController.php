@@ -27,13 +27,27 @@ class PostsController extends Controller
         //dd($categories);
         $like = new Like;
         $post_comment = new Post;
+        //検索ワードが入力されていたら
         if(!empty($request->keyword)){
+            $keyword = $request->keyword;
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
-            ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
+            ->orWhere('post', 'like', '%'.$request->keyword.'%')
+            //サブカテゴリーの完全一致
+            //Postモデル内のメソッド名を指定
+            ->orWhereHas('subCategories', function ($query) use ($keyword) {
+            $query->where('sub_category', $keyword);
+        })
+            ->get();
         }else if($request->category_word){
+            //サブカテゴリーのボタンが押された時（viewのinput/name属性）
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            //dd($request);
+            $posts = Post::with('user', 'postComments')
+            ->orWhereHas('subCategories', function ($query) use ($sub_category) {
+            $query->where('sub_category', $sub_category);
+        })
+        ->get();
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -121,13 +135,13 @@ class PostsController extends Controller
         $like = new Like;
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
-    //サブカテゴリーの投稿
+    //サブカテゴリーの投稿一覧
     public function subcategoryPosts($sub_category_id) {
         //dd($sub_category_id);
         $subcategory = Subcategory::find($sub_category_id);
         $posts = $subcategory->posts()->with('user', 'likes', 'postComments')->get();
         $like = new Like;
-        return view('authenticated.bulletinboard.post_subcategory', compact('posts', 'subcategory', 'like'));
+        return view('authenticated.bulletinboard.post_subcategory', compact('posts', 'like', 'subcategory'));
 }
 //いいね機能
     //ユーザーidと投稿idを受け取り、Likeモデルを使用して新しいいいねのレコードを追加する
