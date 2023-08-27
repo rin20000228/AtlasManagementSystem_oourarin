@@ -22,14 +22,16 @@ class SelectIdDetails implements DisplayUsers{
     }else{
       $role = array($role);
     }
+
     $users = User::with('subjects')
     ->whereIn('id', $keyword)
     ->where(function($q) use ($role, $gender){
       $q->whereIn('sex', $gender)
       ->whereIn('role', $role);
     })
+    //中間テーブル
     ->whereHas('subjects', function($q) use ($subjects){
-      $q->where('subjects.id', $subjects);
+      $q->whereIn('subject_id', $subjects);
     })
     ->orderBy('id', $updown)->get();
     return $users;

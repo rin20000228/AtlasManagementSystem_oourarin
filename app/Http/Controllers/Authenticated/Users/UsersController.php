@@ -31,13 +31,6 @@ class UsersController extends Controller
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
         // 科目の一覧表示
         $allSubjects = Subjects::all();
-        // 選択された科目で絞り込み
-        if (!empty($subjects)) {
-            $userIds = DB::table('subject_users')
-            ->whereIn('subject_id', $subjects)
-            ->pluck('user_id');
-            $users = $users->whereIn('id', $userIds);
-        }
         return view('authenticated.users.search', compact('users', 'allSubjects'));
     }
 
