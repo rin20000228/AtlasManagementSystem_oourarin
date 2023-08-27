@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Authenticated\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use Gate;
 use App\Models\Users\User;
@@ -15,12 +16,13 @@ class UsersController extends Controller
 {
 
     public function showUsers(Request $request){
+        //dd($request->all());
         $keyword = $request->keyword;
         $category = $request->category;
         $updown = $request->updown;
         $gender = $request->sex;
         $role = $request->role;
-        $subjects = $request->subject_id;; // ここで検索時の科目を受け取る
+        $subjects = $request->subject_id; // ここで検索時の科目を受け取る
         //dd($subjects);
         //メソッド
         $userFactory = new SearchResultFactories();
@@ -29,6 +31,13 @@ class UsersController extends Controller
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
         // 科目の一覧表示
         $allSubjects = Subjects::all();
+        // 選択された科目で絞り込み
+        if (!empty($subjects)) {
+            $userIds = DB::table('subject_users')
+            ->whereIn('subject_id', $subjects)
+            ->pluck('user_id');
+            $users = $users->whereIn('id', $userIds);
+        }
         return view('authenticated.users.search', compact('users', 'allSubjects'));
     }
 
