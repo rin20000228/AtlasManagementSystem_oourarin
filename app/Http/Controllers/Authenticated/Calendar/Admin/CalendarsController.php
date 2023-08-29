@@ -16,6 +16,7 @@ class CalendarsController extends Controller
 {
     public function show(){
         $calendar = new CalendarView(time());
+
         return view('authenticated.calendar.admin.calendar', compact('calendar'));
     }
 
@@ -26,6 +27,7 @@ class CalendarsController extends Controller
 
     public function reserveSettings(){
         $calendar = new CalendarSettingView(time());
+        //dd($calendar);
         return view('authenticated.calendar.admin.reserve_setting', compact('calendar'));
     }
 

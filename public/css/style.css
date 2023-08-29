@@ -54,8 +54,13 @@ li {
   color: #FF0000;
 }
 
+/* 過去日のグレーアウト */
 .past-day {
   background: #EEE;
+}
+
+.empty-day {
+  background-color: #fff;
 }
 
 .calendar-td {

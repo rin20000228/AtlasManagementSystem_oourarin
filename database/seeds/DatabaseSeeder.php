@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         //DatabaseSeederの中にあるUsersTableSeederを呼び出す指示
         //$this->call(UsersTableSeeder::class);
-        $this->call(SubjectsTableSeeder::class);
+        $this->call(CalendarsTableSeeder::class);
     }
 }

@@ -14,10 +14,13 @@ use DB;
 class CalendarsController extends Controller
 {
     public function show(){
+        //time()で現在時刻を取得し今月のカレンダーを表示
         $calendar = new CalendarView(time());
+        //dd($calendar);
         return view('authenticated.calendar.general.calendar', compact('calendar'));
     }
 
+    //予約機能
     public function reserve(Request $request){
         DB::beginTransaction();
         try{

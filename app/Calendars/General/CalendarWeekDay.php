@@ -49,7 +49,9 @@ class CalendarWeekDay{
      }
 
      $html = [];
+     //予約画面プルダウンの中身
      $html[] = '<select name="getPart[]" class="border-primary" style="width:70px; border-radius:5px;" form="reserveParts">';
+     //選択された内容をCalenderviewへ渡す
      $html[] = '<option value="" selected></option>';
      if($one_part_frame == "0"){
        $html[] = '<option value="1" disabled>リモ1部(残り0枠)</option>';

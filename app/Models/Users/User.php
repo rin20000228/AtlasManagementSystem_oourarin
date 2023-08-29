@@ -58,11 +58,11 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Models\Posts\Post');
     }
-
+    //多対多
     public function calendars(){
         return $this->belongsToMany('App\Models\Calendars\Calendar', 'calendar_users', 'user_id', 'calendar_id')->withPivot('user_id', 'id');
     }
-
+    //予約機能
     public function reserveSettings(){
         return $this->belongsToMany('App\Models\Calendars\ReserveSettings', 'reserve_setting_users', 'user_id', 'reserve_setting_id')->withPivot('id');
     }
