@@ -49,7 +49,7 @@ $(function () {
 
     });
   });
-
+  //投稿の編集機能
   $('.edit-modal-open').on('click', function () {
     $('.js-modal').fadeIn();
     var post_title = $(this).attr('post_title');
@@ -60,6 +60,7 @@ $(function () {
     $('.edit-modal-hidden').val(post_id);
     return false;
   });
+  //閉じるボタン
   $('.js-modal-close').on('click', function () {
     $('.js-modal').fadeOut();
     return false;
