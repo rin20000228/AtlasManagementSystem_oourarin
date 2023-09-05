@@ -18,16 +18,17 @@
           <div class="w-100">
             <!-- 予約日 -->
             <div class="modal-reserve w-50 m-auto">
-              <p name="setting_reserve" class="w-50 m-auto p-0"></p>
+              <p name="setting_reserve" class=""></p>
               <!-- 機能に必要な日付を送る -->
               <input type="hidden" name="hide_setting_reserve" value="">
             </div>
             <!-- 予約部数 -->
             <div class="modal-reserve-part">
-              <p name="reservePart" class="w-50 m-auto"></p>
+              <p name="reservePart" class=""></p>
               <!-- 機能に必要な部数を送る -->
               <input type="hidden" name="setting_part">
             </div>
+            <p>上記の予約をキャンセルしてもよろしいですか？</p>
             <!-- 閉じるボタン-->
             <div class="w-50 m-auto edit-modal-btn d-flex">
               <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
