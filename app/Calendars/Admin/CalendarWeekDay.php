@@ -31,17 +31,17 @@ class CalendarWeekDay{
 //予約人数の表示
     $html[] = '<div class="text-left">';
     if($one_part){
-      $html[] = '<p class="day_part m-0 pt-1">1部
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '1']) . '">1部</a>
       <span>'. count($one_part->users) . '</span>
       </p>';
     }
     if($two_part){
-      $html[] = '<p class="day_part m-0 pt-1">2部
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '2']) . '">2部</a>
       <span>'. count($two_part->users) . '</span>
       </p>';
     }
     if($three_part){
-      $html[] = '<p class="day_part m-0 pt-1">3部
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '3']) . '">3部</a>
       <span>'. count($three_part->users) . '</span>
       </p>';
     }
