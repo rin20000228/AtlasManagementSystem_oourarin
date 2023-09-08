@@ -17,7 +17,7 @@
         <form action="{{ route('deleteParts') }}" method="post">
           <div class="w-100">
             <!-- 予約日 -->
-            <div class="modal-reserve w-50 m-auto">
+            <div class="modal-reserve">
               <p name="setting_reserve" class=""></p>
               <!-- 機能に必要な日付を送る -->
               <input type="hidden" name="hide_setting_reserve" value="">
@@ -34,7 +34,7 @@
               <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
               <input type="hidden" class="modal-hidden" name="user_id" value="">
               <!-- キャンセルボタン　-->
-              <input type="submit" class="btn btn-primary d-block" value="キャンセル">
+              <input type="submit" class="btn btn-primary d-block" value="キャンセル" form="deleteParts">
             </div>
           </div>
           {{ csrf_field() }}

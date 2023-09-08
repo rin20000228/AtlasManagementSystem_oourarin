@@ -23,6 +23,7 @@ class CalendarsController extends Controller
     //予約機能
     public function reserve(Request $request){
         //dd($request);
+        //トランザクション
         DB::beginTransaction();
         try{
             //予約の際に送っている内容
@@ -42,7 +43,25 @@ class CalendarsController extends Controller
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
     //予約の解除
-    public function reserveDelete(Request $request){
+    public function delete(Request $request){
+        //dd($request);
+        DB::beginTransaction();
+        try {
+        //キャンセルする予約情報の取得
+        $getPart = $request->getPart;
+        $getDate = $request->getData;
+        $reserveDays = array_filter(array_combine($getDate, $getPart));
+
+        foreach ($reserveDays as $key => $value) {
+            $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
+            $reserve_settings->increment('limit_users');
+            $reserve_settings->users()->detach(Auth::id());
+            }
+        DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+        }
+        return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+    }
 
     }
-}
