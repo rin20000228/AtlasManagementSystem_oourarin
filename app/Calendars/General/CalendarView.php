@@ -64,6 +64,7 @@ class CalendarView{
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{
             //[2]未来（予約した部数が表示される→ボタンを押すとキャンセル）
+            //表示用と機能用でモーダルに送る
             $html[] = '<button
              type="submit"
              class="modal-cancel btn btn-danger p-0 w-75" name="delete_date"

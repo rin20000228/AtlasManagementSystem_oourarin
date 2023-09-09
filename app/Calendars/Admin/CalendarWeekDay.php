@@ -22,7 +22,7 @@ class CalendarWeekDay{
   function everyDay(){
     return $this->carbon->format("Y-m-d");
   }
-
+  //予約の詳細ページ
   function dayPartCounts($ymd){
     $html = [];
     $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();

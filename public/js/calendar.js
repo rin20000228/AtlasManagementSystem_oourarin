@@ -6,10 +6,12 @@ $(function () {
 
     //日付（表示用とDBに送る用の記述）
     var setting_reserve = $(this).attr('reserve_days');
+    //DB
     var hide_setting_reserve = $(this).attr('setting_reserve');
 
     //部数（表示用とDBに送る用の記述）
     var reservePart = $(this).attr('reserve_part');
+    //DB
     var setting_part = $(this).attr('part-int');
 
     //定義する

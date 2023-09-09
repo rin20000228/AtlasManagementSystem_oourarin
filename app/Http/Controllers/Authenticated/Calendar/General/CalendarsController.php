@@ -22,18 +22,21 @@ class CalendarsController extends Controller
 
     //予約機能
     public function reserve(Request $request){
-        //dd($request);
         //トランザクション
         DB::beginTransaction();
         try{
             //予約の際に送っている内容
             $getPart = $request->getPart;
             $getDate = $request->getData;
+            //1つの変数にする
             $reserveDays = array_filter(array_combine($getDate, $getPart));
+            //dd($reserveDays);
+            //DBの処理(予約は複数予約することが可能なのでループ処理が必要)
             foreach($reserveDays as $key => $value){
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
                 //予約すると予約可能人数が減る
                 $reserve_settings->decrement('limit_users');
+                //テーブルにuserのidを保存
                 $reserve_settings->users()->attach(Auth::id());
             }
             DB::commit();
@@ -42,22 +45,25 @@ class CalendarsController extends Controller
         }
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
-    //予約の解除
+    //予約のキャンセル
     public function delete(Request $request){
         //dd($request);
         DB::beginTransaction();
         try {
-        //キャンセルする予約情報の取得
-        $getPart = $request->getPart;
-        $getDate = $request->getData;
-        $reserveDays = array_filter(array_combine($getDate, $getPart));
-
-        foreach ($reserveDays as $key => $value) {
-            $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
+            //キャンセルする予約情報の取得
+            //キャンセルは一度に複数のキャンセルができないのでループ処理不要
+            $reserveDate = $request->hide_setting_reserve;
+            //dd($reserveDate);
+            $reservePart = $request->setting_part;
+            //dd($reservePart);
+             $reserve_settings = ReserveSettings::where('setting_reserve', $reserveDate)->where('setting_part', $reservePart)->first();
+             //dd($reserve_settings);
+            //予約可能人数を増やす
             $reserve_settings->increment('limit_users');
+            //テーブルから該当ユーザーの予約を削除
             $reserve_settings->users()->detach(Auth::id());
-            }
-        DB::commit();
+
+            DB::commit();
         }catch(\Exception $e){
             DB::rollback();
         }

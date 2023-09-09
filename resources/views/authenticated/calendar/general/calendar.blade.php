@@ -18,23 +18,22 @@
           <div class="w-100">
             <!-- 予約日 -->
             <div class="modal-reserve">
-              <p name="setting_reserve" class=""></p>
-              <!-- 機能に必要な日付を送る -->
-              <input type="hidden" name="hide_setting_reserve" value="">
+              <p name="setting_reserve" class="modal-reserve"></p>
+              <!-- キャンセル機能に必要な日付を送る -->
+              <input type="hidden" class="modal-reserve" name="hide_setting_reserve" value="">
             </div>
             <!-- 予約部数 -->
             <div class="modal-reserve-part">
-              <p name="reservePart" class=""></p>
-              <!-- 機能に必要な部数を送る -->
-              <input type="hidden" name="setting_part">
+              <p name="reservePart" class="modal-reserve-part"></p>
+              <!-- キャンセル機能に必要な部数を送る -->
+              <input type="hidden" class="modal-reserve-part" name="setting_part">
             </div>
             <p>上記の予約をキャンセルしてもよろしいですか？</p>
             <!-- 閉じるボタン-->
             <div class="w-50 m-auto edit-modal-btn d-flex">
               <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
-              <input type="hidden" class="modal-hidden" name="user_id" value="">
               <!-- キャンセルボタン　-->
-              <input type="submit" class="btn btn-primary d-block" value="キャンセル" form="deleteParts">
+              <input type="submit" class="btn btn-primary d-block" value="キャンセル">
             </div>
           </div>
           {{ csrf_field() }}
