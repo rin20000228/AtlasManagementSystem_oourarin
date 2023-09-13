@@ -22,8 +22,12 @@ class CalendarsController extends Controller
 
     //予約の詳細ページ
     public function reserveDetail($date, $part){
-        $reservePersons = ReserveSettings::with('users')->where('setting_reserve', $date)->where('setting_part', $part)->get();
+        $reservePersons = ReserveSettings::with('users')
+        ->where('setting_reserve', $date)->where('setting_part', $part)->get();
+        //dd($part);
+        //dd($reservePersons);
         return view('authenticated.calendar.admin.reserve_detail', compact('reservePersons', 'date', 'part'));
+
     }
 
     //予約枠登録

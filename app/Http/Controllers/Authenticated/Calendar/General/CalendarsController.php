@@ -22,6 +22,7 @@ class CalendarsController extends Controller
 
     //予約機能
     public function reserve(Request $request){
+        //dd($request);
         //トランザクション
         DB::beginTransaction();
         try{
@@ -53,16 +54,13 @@ class CalendarsController extends Controller
             //キャンセルする予約情報の取得
             //キャンセルは一度に複数のキャンセルができないのでループ処理不要
             $reserveDate = $request->hide_setting_reserve;
-            //dd($reserveDate);
             $reservePart = $request->setting_part;
             //dd($reservePart);
              $reserve_settings = ReserveSettings::where('setting_reserve', $reserveDate)->where('setting_part', $reservePart)->first();
-             //dd($reserve_settings);
             //予約可能人数を増やす
             $reserve_settings->increment('limit_users');
             //テーブルから該当ユーザーの予約を削除
             $reserve_settings->users()->detach(Auth::id());
-
             DB::commit();
         }catch(\Exception $e){
             DB::rollback();

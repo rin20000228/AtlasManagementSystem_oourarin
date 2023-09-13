@@ -6,6 +6,47 @@
   padding: 0;
 }
 
+/* login */
+.w-100 {
+  background: #ecf1f5;
+}
+
+.border {
+  border-radius: 2%;
+  padding: 14px;
+}
+
+.login-box {
+  box-shadow: 2px 2px 4px gray;
+  background: #fff;
+}
+
+.border-0 {
+  background: #fff;
+}
+
+.p-3 {
+  background: #fff;
+  box-shadow: 2px 2px 4px gray;
+}
+
+.register-button {
+  padding-bottom: 10px;
+}
+
+/* register */
+.error-message {
+  color: #FF0000;
+}
+
+.center {
+  text-align: center;
+}
+
+.sex-type {
+  margin-right: 20px;
+}
+
 /* body */
 .all_content {
   background: #ECF1F6;

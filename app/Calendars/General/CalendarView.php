@@ -53,10 +53,13 @@ class CalendarView{
           $reserveDay = $day->authReserveDate($day->everyDay())->first()->setting_reserve;
           if($reservePart == 1){
             $reservePart = "リモ1部";
+            $reservePlace = "リモート";
           }else if($reservePart == 2){
             $reservePart = "リモ2部";
+            $reservePlace = "リモート";
           }else if($reservePart == 3){
             $reservePart = "リモ3部";
+            $reservePlace = "リモート";
           }
           //[1]過去日
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){

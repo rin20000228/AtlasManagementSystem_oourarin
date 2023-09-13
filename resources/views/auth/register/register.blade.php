@@ -21,7 +21,7 @@
             <div class="" style="width:140px">
             <ul>
                @if ($errors->has('over_name'))
-               <li class="">{{$errors->first('over_name')}}</li>
+               <li class="error-message">{{$errors->first('over_name')}}</li>
                @endif
             </ul>
               <label class="d-block m-0" style="font-size:13px">姓</label>
@@ -32,7 +32,7 @@
             <div class="" style="width:140px">
             <ul>
                @if ($errors->has('under_name'))
-               <li>{{$errors->first('under_name')}}</li>
+               <li class="error-message">{{$errors->first('under_name')}}</li>
                @endif
             </ul>
               <label class=" d-block m-0" style="font-size:13px">名</label>
@@ -45,7 +45,7 @@
             <div class="" style="width:140px">
             <ul>
                @if ($errors->has('over_name_kana'))
-               <li>{{$errors->first('over_name_kana')}}</li>
+               <li class="error-message">{{$errors->first('over_name_kana')}}</li>
                @endif
             </ul>
               <label class="d-block m-0" style="font-size:13px">セイ</label>
@@ -56,7 +56,7 @@
             <div class="" style="width:140px">
             <ul>
                @if ($errors->has('under_name_kana'))
-               <li>{{$errors->first('under_name_kana')}}</li>
+               <li class="error-message">{{$errors->first('under_name_kana')}}</li>
                @endif
             </ul>
               <label class="d-block m-0" style="font-size:13px">メイ</label>
@@ -68,7 +68,7 @@
           <div class="mt-3">
             <ul>
                @if ($errors->has('mail_address'))
-               <li>{{$errors->first('mail_address')}}</li>
+               <li class="error-message">{{$errors->first('mail_address')}}</li>
                @endif
             </ul>
             <label class="m-0 d-block" style="font-size:13px">メールアドレス</label>
@@ -77,23 +77,23 @@
             </div>
           </div>
         </div>
-        <div class="mt-3">
+        <div class="mt-3 center">
           <ul>
                @if ($errors->has('sex'))
-               <li>{{$errors->first('sex')}}</li>
+               <li class="error-message">{{$errors->first('sex')}}</li>
                @endif
             </ul>
           <input type="radio" name="sex" class="sex" value="1">
-          <label style="font-size:13px">男性</label>
+          <label class="sex-type" style="font-size:13px">男性</label>
           <input type="radio" name="sex" class="sex" value="2">
-          <label style="font-size:13px">女性</label>
+          <label class="sex-type" style="font-size:13px">女性</label>
           <input type="radio" name="sex" class="sex" value="3">
-          <label style="font-size:13px">その他</label>
+          <label class="sex-type" style="font-size:13px">その他</label>
         </div>
         <div class="mt-3">
           <ul>
                @if ($errors->has('birth_day'))
-               <li>{{$errors->first('birth_day')}}</li>
+               <li class="error-message">{{$errors->first('birth_day')}}</li>
                @endif
             </ul>
           <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
@@ -182,7 +182,7 @@
         <div class="mt-3">
           <ul>
                @if ($errors->has('role'))
-               <li>{{$errors->first('role')}}</li>
+               <li class="error-message">{{$errors->first('role')}}</li>
                @endif
           </ul>
           <label class="d-block m-0" style="font-size:13px">役職</label>
@@ -207,7 +207,7 @@
         <div class="mt-3">
           <ul>
                @if ($errors->has('password'))
-               <li>{{$errors->first('password')}}</li>
+               <li class="error-message">{{$errors->first('password')}}</li>
                @endif
             </ul>
           <label class="d-block m-0" style="font-size:13px">パスワード</label>
@@ -225,7 +225,7 @@
           <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
         </div>
         <div class="text-center">
-          <a href="{{ route('loginView') }}">ログイン</a>
+          <a href="{{ route('loginView') }}">ログインはこちら</a>
         </div>
       </div>
       {{ csrf_field() }}

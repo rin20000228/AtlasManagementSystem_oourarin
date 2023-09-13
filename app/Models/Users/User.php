@@ -62,9 +62,9 @@ class User extends Authenticatable
     public function calendars(){
         return $this->belongsToMany('App\Models\Calendars\Calendar', 'calendar_users', 'user_id', 'calendar_id')->withPivot('user_id', 'id');
     }
-    //予約機能
+    //予約の詳細
     public function reserveSettings(){
-        return $this->belongsToMany('App\Models\Calendars\ReserveSettings', 'reserve_setting_users', 'user_id', 'reserve_setting_id')->withPivot('id');
+        return $this->belongsToMany('App\Models\Calendars\ReserveSettings', 'reserve_setting_users', 'user_id', 'reserve_setting_id')->withPivot('id', 'reserve_setting_id');
     }
     //userとsubjectは多対多の関係
     //中間テーブル
