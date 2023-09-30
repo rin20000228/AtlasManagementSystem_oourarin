@@ -470,7 +470,7 @@ li {
   transform: rotate(135deg);
   transition: transform .3s ease-in-out;
   width: 10px;
-  top: -15px;
+  top: -2px;
 }
 
 .accordion-push.open::after {
