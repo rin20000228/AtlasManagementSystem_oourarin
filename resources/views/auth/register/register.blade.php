@@ -14,7 +14,7 @@
 </head>
 <body>
   <form action="{{ route('registerPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
+    <div class="register-wrapper w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
       <div class="w-25 vh-75 border p-3">
         <div class="register_form">
           <div class="d-flex mt-3" style="justify-content:space-between">
@@ -90,13 +90,14 @@
           <input type="radio" name="sex" class="sex" value="3">
           <label class="sex-type" style="font-size:13px">その他</label>
         </div>
-        <div class="mt-3">
+        <div class="birth-day mt-3">
           <ul>
                @if ($errors->has('birth_day'))
                <li class="error-message">{{$errors->first('birth_day')}}</li>
                @endif
             </ul>
           <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
+          <span class="birth">
           <select class="old_year" name="old_year">
             <option value="none">-----</option>
             <option value="1985">1985</option>
@@ -178,6 +179,7 @@
             <option value="31">31</option>
           </select>
           <label style="font-size:13px">日</label>
+          </span>
         </div>
         <div class="mt-3">
           <ul>

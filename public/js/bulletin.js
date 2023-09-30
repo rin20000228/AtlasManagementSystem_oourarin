@@ -66,4 +66,15 @@ $(function () {
     return false;
   });
 
+  //アコーディオンメニュー
+  $(document).ready(function () {
+    $(".accordion-push").click(function () {
+      var targetId = $(this).data("target");
+      var subCategories = $("[data-category='" + targetId + "']");
+
+      subCategories.slideToggle();
+      $(this).toggleClass("open");
+    });
+  });
+
 });

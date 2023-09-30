@@ -3,15 +3,24 @@
 <div class="vh-100 d-flex">
   <div class="w-50 mt-5">
     <div class="m-3 detail_container">
-      <div class="p-3">
+      <div class="post_detail_container">
         <!-- 投稿の編集・削除ボタン -->
         @if(Auth::user()->id == $post->user_id)
         <div class="detail_inner_head">
           <div>
+            @if($errors->first('comment'))
+            <p class="error_message">{{ $errors->first('comment') }}</p>
+            @endif
           </div>
-          <div>
-            <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-              <a class="post-delete-modal" href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>
+          <div class="detail_flex">
+            @foreach($post->subCategories as $sub_category)
+            <p class="post_sub_category" sub_category_id="{{ $sub_category->id }}"><span class="sub_category_tag">{{ $sub_category->sub_category }}</span></p>
+            @endforeach
+            <span class="btn_edit">
+            <p class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</p></span>
+            <span class="btn_delete">
+              <p class="post-delete-modal" href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</p>
+              </span>
           </div>
         </div>
         @endif
@@ -28,9 +37,6 @@
         <li>{{ $errors->first('post_title') }}</li>
         @endif
         </ul>
-        @foreach($post->subCategories as $sub_category)
-        <p class="sub_category" sub_category_id="{{ $sub_category->id }}"><span class="sub_category_tag">{{ $sub_category->sub_category }}</span></p>
-        @endforeach
         <div class="detsail_post_title">{{ $post->post_title }}</div>
         <ul>
           @if ($errors->has('post_body'))
@@ -38,20 +44,11 @@
         @endif
         </ul>
         <div class="mt-3 detsail_post">{{ $post->post }}</div>
-        <div class="mr-5">
-            <i class="fa fa-comment"></i><span>{{ $post->postComments->count() }}</span>
-          </div>
-        <div>
-            @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ $post->likes->count() }}</span></p>
-            @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{ $post->likes->count() }}</span></p>
-            @endif
-          </div>
+
       </div>
-      <div class="p-3">
+      <div class="comment_box">
         <div class="comment_container">
-          <span class="">コメント</span>
+          <span class="comment_text">コメント</span>
           @foreach($post->postComments as $comment)
           <div class="comment_area border-top">
             <p>
@@ -65,13 +62,11 @@
       </div>
     </div>
   </div>
-  <div class="w-50 p-3">
+  <div class="w-50">
     <div class="comment_container border m-5">
-      <div class="comment_area p-3">
-        @if ($errors->any())
-        @foreach($errors->all() as $error)
-        <p class="">{{ $error }}</p>
-        @endforeach
+      <div class="comment_area">
+        @if($errors->first('comment'))
+        <p class="error_message">{{ $errors->first('comment') }}</p>
         @endif
         <p class="m-0">コメントする</p>
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>

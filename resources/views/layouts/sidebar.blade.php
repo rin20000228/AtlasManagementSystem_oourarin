@@ -13,23 +13,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Oswald:wght@200&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 
 <body class="all_content">
   <div class="d-flex">
     <div class="sidebar">
       @section('sidebar')
-      <p><a href="{{ route('top.show') }}">トップ</a></p>
-      <p><a href="/logout">ログアウト</a></p>
-      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
+      <p class="mypage"><a href="{{ route('top.show') }}"><i class="fas fa-home"></i>マイページ</a></p>
+      <p><a href="/logout"><i class="fas fa-sign-out-alt"></i>ログアウト</a></p>
+      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}"><i class="far fa-calendar-alt"></i>スクール予約</a></p>
       @auth
       @if (!(Auth::user()->role === 4) )
-      <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
-      <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+      <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}"><i class="far fa-calendar-check"></i>スクール予約確認</a></p>
+      <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}"><i class="far fa-calendar-minus"></i>スクール枠登録</a></p>
       @endif
       @endauth
-      <p><a href="{{ route('post.show') }}">掲示板</a></p>
-      <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
+      <p><a href="{{ route('post.show') }}"><i class="far fa-comment-dots"></i>掲示板</a></p>
+      <p><a href="{{ route('user.show') }}"><i class="fas fa-user-friends"></i>ユーザー検索</a></p>
       @show
     </div>
     <div class="main-container">
