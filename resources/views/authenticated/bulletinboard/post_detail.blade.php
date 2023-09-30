@@ -18,9 +18,9 @@
             @endforeach
             <span class="btn_edit">
             <p class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</p></span>
-            <span class="btn_delete">
-              <p class="post-delete-modal" href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</p>
-              </span>
+            <p class="btn_delete">
+              <a class="post-delete-modal" href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>
+            </p>
           </div>
         </div>
         @endif

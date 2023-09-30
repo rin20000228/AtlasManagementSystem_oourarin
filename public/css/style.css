@@ -536,16 +536,16 @@ li {
 
 .btn_delete {
   display: inline-block;
-}
-
-.post-delete-modal {
   background-color: #dc3545;
   padding: 5px 14px;
   border: none;
   border-radius: 5px;
-  color: #fff;
   text-decoration: none;
   cursor: pointer;
+}
+
+.post-delete-modal {
+  color: #fff;
 }
 
 .btn_delete a:hover {
