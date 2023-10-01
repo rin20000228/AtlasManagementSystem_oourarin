@@ -142,10 +142,6 @@ li {
 }
 
 .calendar_reserve {
-  background: #ecf1f5;
-}
-
-.calender_reserve_container {
   background: #FFF;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -169,6 +165,10 @@ li {
 
 .sunday {
   color: red;
+}
+
+.calendar_text {
+  color: black;
 }
 
 /* 予約枠登録画面 */
@@ -666,6 +666,7 @@ li {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   margin-right: 10px;
   line-height: 25px;
+  margin-bottom: 25px;
 }
 
 .search_conditions span {

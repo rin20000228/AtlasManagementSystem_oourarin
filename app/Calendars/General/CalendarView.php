@@ -41,7 +41,7 @@ class CalendarView{
         $toDay = $this->carbon->copy()->format("Y-m-d");
 
         if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
-          $html[] = '<td class="past-day border">';
+          $html[] = '<td class="saturday sunday past-day border">';
         }else{
           $html[] = '<td class="border '.$day->getClassName().'">';
         }
@@ -85,7 +85,7 @@ class CalendarView{
           //[1]過去日
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
             //受付終了を表示
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            $html[] = '<p class="calendar_text m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
             //[2]未来
           }else{
