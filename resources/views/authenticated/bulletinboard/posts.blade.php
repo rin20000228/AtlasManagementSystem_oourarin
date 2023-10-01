@@ -48,8 +48,13 @@
             <p class="category_items">カテゴリー検索</p>
             @foreach($categories as $category)
             <div class="category-container">
+              <div class="accordion-push-js" data-target="{{ $category->id }}">
+
               <div class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}</span></div>
               <div class="accordion-push" data-target="{{ $category->id }}"></div>
+
+              </div>
+
               <ul class="sub_categories" data-category="{{ $category->id }}">
                 @foreach($category->subCategories as $sub_category)
                 <li class="sub_category" sub_category_id="{{ $sub_category->id }}">

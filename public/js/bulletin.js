@@ -68,7 +68,7 @@ $(function () {
 
   //アコーディオンメニュー
   $(document).ready(function () {
-    $(".accordion-push").click(function () {
+    $(".accordion-push-js").click(function () {
       var targetId = $(this).data("target");
       var subCategories = $("[data-category='" + targetId + "']");
 
